@@ -111,3 +111,28 @@ const solveLabirynth = () => {
 };
 
 document.getElementById("solveLab").onclick = solveLabirynth;
+document.getElementById("resetDistances").onclick = function () {
+    for (let i = 0; i < 20; i++) {
+        for (let j = 0; j < 20; j++) {
+            if (distances[i][j] > 0) {
+                let idx = i + "x" + j;
+                document.getElementById(idx).style.backgroundColor = "";
+
+                distances[i][j] = 0;
+            }
+        }
+    }
+    path = [];
+};
+document.getElementById("clearWalls").onclick = function () {
+    for (let i = 0; i < 20; i++) {
+        for (let j = 0; j < 20; j++) {
+            if (distances[i][j] == -1) {
+                distances[i][j] = 0;
+                const wall = document.getElementById(i + 'x' + j)
+                wall.classList.remove("el--wall");
+            }
+        }
+    }
+    path = [];
+};
