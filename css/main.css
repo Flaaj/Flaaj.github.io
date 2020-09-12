@@ -5,6 +5,8 @@
 body {
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .wrapper {
@@ -12,7 +14,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 80vh;
-  width: 100vw;
+  width: 98vw;
   flex-wrap: wrap;
 }
 
@@ -24,8 +26,8 @@ body {
   margin: 0 auto;
   background: black;
   display: grid;
-  grid-template-rows: repeat(20, 1fr);
-  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(40, 1fr);
+  grid-template-columns: repeat(40, 1fr);
 }
 
 .el {
@@ -34,15 +36,15 @@ body {
 }
 
 .el--animated {
-  -webkit-animation: biggerEl 1s;
-          animation: biggerEl 1s;
+  -webkit-animation: biggerEl 0.5s;
+          animation: biggerEl 0.5s;
 }
 
 .el--wall {
   background: black;
 }
 
-button {
+.btn {
   width: 200px;
   height: 100px;
   background: black;
