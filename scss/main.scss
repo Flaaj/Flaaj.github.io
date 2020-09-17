@@ -69,6 +69,10 @@ body {
     }
 }
 
+ol li {
+    width: 150px;
+}
+
 @keyframes biggerEl {
     0% {
         transform: scale(1);

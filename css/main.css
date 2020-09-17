@@ -73,6 +73,10 @@ body {
   }
 }
 
+ol li {
+  width: 150px;
+}
+
 @-webkit-keyframes biggerEl {
   0% {
     transform: scale(1);
