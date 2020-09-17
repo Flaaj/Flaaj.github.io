@@ -1,5 +1,7 @@
 const nRows = 40;
 const nCols = 40;
+const delayA = 5;
+const delayB = 40;
 const grid = document.getElementById("grid");
 const distances = [];
 
@@ -101,17 +103,25 @@ const addElementToGrid = function (i, j) {
 }; // koniec funkcji addElementToGrid :)
 
 document.addEventListener("touchmove", function (e) {
-    e.preventDefault();
+    // e.preventDefault();s
     const touch = e.touches[0];
     const element = document.elementFromPoint(touch.clientX, touch.clientY);
+    
     const [col, row] = element.id.split("x");
-    element.classList.toggle("el--wall");
-    distances[col][row] == 0
-        ? (distances[col][row] = -1)
-        : (distances[col][row] = 0);
+    if (col) {
+        element.classList.toggle("el--wall");
+        distances[col][row] == 0
+            ? (distances[col][row] = -1)
+            : (distances[col][row] = 0);
+    }
 });
 
 const createGrid = () => {
+    // tworzymy tablice distances, zawierającą ilość kroków,
+    // potrzebną, aby dojść do danego punktu z punktu początkowego.
+    // Tworzymy nRows rzędów, a do każdego z nich wrzucamy nCols zer.
+    // Dodatkowo przy okazji możemy w tej zagnieżdżonej pętli dodać elementy
+    // do HTMLa, nadając każdemu z nich unkalne id.
     for (let i = 0; i < nRows; i++) {
         distances.push([]);
         for (let j = 0; j < nCols; j++) {
@@ -151,12 +161,12 @@ const solveLabirynth = () => {
                         element.style.backgroundColor = "green";
 
                     element.innerText = distance;
-                }, 3 * timerCounter++);
+                }, delayA * timerCounter++);
                 visited.push([x + dx, y + dy]);
             }
         });
     }
-let anotherTimer = 0
+    let anotherTimer = 0;
     const path = [[nRows - 1, nCols - 1]];
     if (distances[nRows - 1][nCols - 1] > 0) {
         [x, y] = [nRows - 1, nCols - 1];
@@ -169,8 +179,8 @@ let anotherTimer = 0
                     y + dy < nCols &&
                     distances[x + dx][y + dy] == distances[x][y] - 1
                 ) {
-                    path.push([x + dx, y + dy]);
                     [x, y] = [x + dx, y + dy];
+                    path.push([x, y]);
                 }
             });
     }
@@ -180,7 +190,7 @@ let anotherTimer = 0
         const id = x + "x" + y;
         setTimeout(() => {
             document.getElementById(id).style.backgroundColor = "yellow";
-        }, 3 * timerCounter + 20 * (index + 1));
+        }, delayA * timerCounter + delayB * (index + 1));
     });
 };
 
@@ -192,11 +202,12 @@ const resetDistances = () => {
     // na 0
     for (let i = 0; i < nRows; i++) {
         for (let j = 0; j < nCols; j++) {
-            let idx = i + "x" + j;
-            document.getElementById(idx).style.backgroundColor = "";
-            document.getElementById(idx).innerText = "";
-            if (distances[i][j] > 0) {
+            let element = document.getElementById(i + "x" + j);
+            element.style.backgroundColor = "";
+            element.innerText = "";
+            if (distances[i][j] >= 0) {
                 distances[i][j] = 0;
+                element.classList.remove("el--wall");
             }
         }
     }
@@ -215,10 +226,11 @@ const clearWalls = () => {
             if (distances[i][j] === -1) {
                 distances[i][j] = 0;
                 // z pomocą obecnych wartości 'i' oraz 'j'
-                // tworzymy zmienną zawierającą element o odpowiednim
-                // id, dzięki czemu możemy usunąć z tego elementu klasę.
-                const wall = document.getElementById(i + "x" + j);
-                wall.classList.remove("el--wall");
+                // wyszukujemy element o odpowiednim
+                // id i usuwamy z tego elementu klasę.
+                document
+                    .getElementById(i + "x" + j)
+                    .classList.remove("el--wall");
             }
         }
     }
@@ -226,6 +238,7 @@ const clearWalls = () => {
 
 // Na sam koniec po prostu tworzymy grid
 //  i dodajemy eventListenery do przycisków, kuniec
+
 createGrid();
 document.getElementById("solveLab").onclick = solveLabirynth;
 document.getElementById("resetDistances").onclick = resetDistances;
