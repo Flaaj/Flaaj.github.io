@@ -21,6 +21,6 @@ window.addEventListener("keydown", (e) => {
     e.keyCode == 40 && moveDown();
     e.keyCode == 39 && moveRight();
     e.keyCode == 37 && moveLeft();
-    if (e.keyCode == 38) rotate();
+    e.keyCode == 38 && rotate();
     updateCanvas();
 });
