@@ -1,3 +1,5 @@
+//copied from https://gist.github.com/SleepWalker/da5636b1abcbaff48c4d
+
 let touchstartX = 0;
 let touchstartY = 0;
 let touchendX = 0;
@@ -27,7 +29,6 @@ document.addEventListener(
 
 function handleGesure() {
     if (touchendX + 30 < touchstartX) {
-        console.log('lewo')
         moveLeft();
     }
     if (touchendX > touchstartX + 30) {
@@ -36,7 +37,7 @@ function handleGesure() {
     if (touchendY > touchstartY + 30) {
         moveDown();
     }
-    if (Math.abs(touchendY - touchstartY) < 15) {
+    if (Math.abs(touchendY - touchstartY) < 2) {
         rotate();
     }
     updateCanvas();
