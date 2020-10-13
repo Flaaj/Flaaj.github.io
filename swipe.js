@@ -34,11 +34,11 @@ function handleGesure() {
     if (touchendX > touchstartX + 30) {
         moveRight();
     }
-    if (touchendY > touchstartY + 30) {
-        moveDown();
+    if (touchendY  + 30 < touchstartY) {
+        rotate();
     }
     if (Math.abs(touchendY - touchstartY) < 2) {
-        rotate();
+        moveDown();
     }
     updateCanvas();
 }
