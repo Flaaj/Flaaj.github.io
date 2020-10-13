@@ -1,11 +1,9 @@
-var touchstartX = 0;
-var touchstartY = 0;
-var touchendX = 0;
-var touchendY = 0;
+let touchstartX = 0;
+let touchstartY = 0;
+let touchendX = 0;
+let touchendY = 0;
 
-let gesuredZone = document.getElementById("gesuredZone");
-
-window.addEventListener('touch', (e) => e.preventDefault())
+window.addEventListener('touchdown', (e) => e.preventDefault())
 
 document.addEventListener(
     "touchstart",
@@ -28,17 +26,17 @@ document.addEventListener(
 );
 
 function handleGesure() {
-    if (touchendX + 20 < touchstartX) {
+    if (touchendX + 30 < touchstartX) {
         console.log('lewo')
         moveLeft();
     }
-    if (touchendX > touchstartX + 20) {
+    if (touchendX > touchstartX + 30) {
         moveRight();
     }
-    if (touchendY > touchstartY + 20) {
+    if (touchendY > touchstartY + 30) {
         moveDown();
     }
-    if (touchendY == touchstartY) {
+    if (Math.abs(touchendY - touchstartY) < 15) {
         rotate();
     }
     updateCanvas();
