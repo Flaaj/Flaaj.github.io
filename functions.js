@@ -85,11 +85,10 @@ const addShapeToContainer = (pixels) => {
 
 const eliminateFullRows = () => {
     for (let i = 0; i < 20; i++) {
-        const row = [];
         let j = 0;
         while (j < 10) {
             container[j][i] === 0 && (j = 11);
-            j++;
+            j++
         }
         if (j == 10) {
             delRow(i);
